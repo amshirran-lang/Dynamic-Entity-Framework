@@ -16,8 +16,8 @@
 - Open the package manager and run: "Update-Database" (package manager located under View -> Other Windows -> Package Manager Console)
 - Press 'F5' to run the application
 - If not brought to the home screen navigate to "https://localhost:7024"
-**Data Storage Approach
 
+**Data Storage Approach
 By using JSON strings in a column both for the client and job the following are accomplished:
 
 -No additional tables are required and the data stays with it's respective object. This makes reads and writes straightforward
