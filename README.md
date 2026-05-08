@@ -18,8 +18,6 @@
 - If not brought to the home screen navigate to "https://localhost:7024"
 **Data Storage Approach
 
-Is this solid reasoning for why I used JSON columns for my database for a dynamic form:
-
 By using JSON strings in a column both for the client and job the following are accomplished:
 
 -No additional tables are required and the data stays with it's respective object. This makes reads and writes straightforward
