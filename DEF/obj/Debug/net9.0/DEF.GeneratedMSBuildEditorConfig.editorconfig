@@ -1,0 +1,79 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v9.0
+build_property.RootNamespace = DEF
+build_property.RootNamespace = DEF
+build_property.ProjectDir = C:\Users\amshi\Downloads\DEF (3)\DEF\DEF\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\amshi\Downloads\DEF (3)\DEF\DEF
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcQXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Pages/ClientEditor.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUGFnZXNcQ2xpZW50RWRpdG9yLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Pages/ClientList.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUGFnZXNcQ2xpZW50TGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Pages/FormDefinitions.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUGFnZXNcRm9ybURlZmluaXRpb25zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Pages/FormRenderer.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUGFnZXNcRm9ybVJlbmRlcmVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Pages/JobEditor.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUGFnZXNcSm9iRWRpdG9yLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Pages/Jobs.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUGFnZXNcSm9icy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcUm91dGVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcX0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcTGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-gy329sl3j3
+
+[C:/Users/amshi/Downloads/DEF (3)/DEF/DEF/Web/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXENvbXBvbmVudHNcTGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-7xsxfqbrbp
