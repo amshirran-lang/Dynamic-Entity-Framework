@@ -19,6 +19,6 @@
 
 **Data Storage Approach
 *By using JSON strings in a column both for the client and job the following are accomplished:
--No additional tables are required and the data stays with it's respective object. This makes reads and writes straightforward
--Adding a new field to a form requires no new database migrations
--Since I mapped it to a dictionary the domain stays clean and allows for easy serialization for the JSON data
+- No additional tables are required and the data stays with it's respective object. This makes reads and writes straightforward
+- Adding a new field to a form requires no new database migrations
+- Since I mapped it to a dictionary the domain stays clean and allows for easy serialization for the JSON data
