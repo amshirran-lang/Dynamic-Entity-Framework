@@ -2,7 +2,7 @@
 
 **How to Run
 **Prerequisites
-- Visual Studio 2019/2022
+- Visual Studio 2019/2022/2026
 - .Net 9 SDK
 - SQL Server LocalDB (included with visual studio)
 
