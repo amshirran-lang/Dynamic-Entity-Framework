@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Dev\\DEF\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{831B3F4C-0446-476E-87A3-FA8D8A7D8245}|DEF\\DEF.csproj|c:\\dev\\def\\def\\web\\pages\\clientlist.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{831B3F4C-0446-476E-87A3-FA8D8A7D8245}|DEF\\DEF.csproj|solutionrelative:def\\web\\pages\\clientlist.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ClientList.razor",
+              "DocumentMoniker": "C:\\Dev\\DEF\\DEF\\Web\\Pages\\ClientList.razor",
+              "RelativeDocumentMoniker": "DEF\\Web\\Pages\\ClientList.razor",
+              "ToolTip": "C:\\Dev\\DEF\\DEF\\Web\\Pages\\ClientList.razor",
+              "RelativeToolTip": "DEF\\Web\\Pages\\ClientList.razor",
+              "ViewState": "AgIAABoAAAAAAAAAAAAIwC4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-07T18:38:45.845Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

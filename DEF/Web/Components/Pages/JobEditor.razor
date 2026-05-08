@@ -1,0 +1,138 @@
+﻿@page "/jobs/new"
+@page "/jobs/edit/{Id:int}"
+@using DEF.Domain
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient Http
+@inject NavigationManager Nav
+
+<h3>@(Id == 0 ? "New" : "Edit") Job</h3>
+
+@if (loading)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="job" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label>Title:</label>
+                    <InputText @bind-Value="job.Title" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Description:</label>
+                    <InputTextArea @bind-Value="job.Description" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Status:</label>
+                    <InputSelect @bind-Value="job.Status" class="form-select">
+                        @foreach (var s in Enum.GetValues<JobStatus>())
+                        {
+                            <option value="@s">@s</option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="mb-3">
+                    <label>Client:</label>
+                    <InputSelect @bind-Value="job.ClientID" class="form-select">
+                        <option value="0">-- Select Client --</option>
+                        @foreach (var c in clients)
+                        {
+                            <option value="@c.Id">@c.FirstName @c.LastName</option>
+                        }
+                    </InputSelect>
+                </div>
+            </div>
+        </div>
+
+        @foreach (var template in templates)
+        {
+            <div class="card mb-3 border-primary">
+                <div class="card-header bg-primary text-white">
+                    @template.Name
+                </div>
+                <div class="card-body">
+                    <FormRenderer Def="template" Values="dynamicValues" showErrors="showErrors" />
+                </div>
+            </div>
+        }
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="button" class="btn btn-secondary" @onclick='() => Nav.NavigateTo("/jobs")'>Cancel</button>
+        </div>
+    </EditForm>
+}
+
+@code
+{
+    [Parameter] public int Id { get; set; }
+
+    Job job = new();
+    Dictionary<string, object> dynamicValues = new();
+    List<DefineForm> templates = new();
+    List<Client> clients = new();
+    bool loading = true;
+    bool showErrors = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var clientsResult = await Http.GetFromJsonAsync<List<Client>>("api/client");
+            if (clientsResult != null)
+                clients = clientsResult;
+
+            var templatesResult = await Http.GetFromJsonAsync<List<DefineForm>>("api/dynamicform/entity/1");
+            if (templatesResult != null)
+                templates = templatesResult;
+
+            if (Id != 0)
+            {
+                var result = await Http.GetFromJsonAsync<Job>($"api/job/{Id}");
+                if (result != null)
+                {
+                    job = result;
+                    var validKeys = templates.SelectMany(t => t.Fields).Select(f => f.Key).ToHashSet();
+                    dynamicValues = job.DynamicForm
+                        .Where(kv => validKeys.Contains(kv.Key))
+                        .ToDictionary(kv => kv.Key, kv => kv.Value);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    async Task Save()
+    {
+        showErrors = true;
+
+        foreach (var template in templates)
+        {
+            foreach (var field in template.Fields)
+            {
+                if (field.IsRequired && (!dynamicValues.TryGetValue(field.Key, out var val) || string.IsNullOrWhiteSpace(val?.ToString())))
+                    return;
+            }
+        }
+
+        job.DynamicForm = dynamicValues;
+        if (Id == 0)
+            await Http.PostAsJsonAsync("api/job", job);
+        else
+            await Http.PutAsJsonAsync($"api/job/{Id}", job);
+
+        Nav.NavigateTo("/jobs");
+    }
+}

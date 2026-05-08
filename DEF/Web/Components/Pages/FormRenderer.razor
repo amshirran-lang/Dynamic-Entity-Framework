@@ -1,0 +1,67 @@
+﻿@using DEF.Domain
+
+@foreach (var field in Def.Fields)
+{
+    <div style="margin-bottom:10px;">
+        <label>@field.Name@(field.IsRequired ? " *" : ""):</label>
+
+        @if(field.Type == FieldType.Text)
+        {
+            <input type="text" value="@Get(field.Key)" @onchange="@((ChangeEventArgs e) => Set(field.Key, e.Value))"/>
+        }
+        else if(field.Type == FieldType.Integer)
+        {
+            <input type="number" value="@Get(field.Key)" @onchange="@((ChangeEventArgs e) => Set(field.Key, e.Value))"/>
+        }
+        else if (field.Type == FieldType.Currency)
+        {
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" step="0.01" class="form-control" value="@Get(field.Key)"
+                       @onchange="@((ChangeEventArgs e) => Set(field.Key, e.Value))" />
+            </div>
+        }
+        else if (field.Type == FieldType.Date)
+        {
+            <input type="date" class="form-control" value="@Get(field.Key)"
+                   @onchange="@((ChangeEventArgs e) => Set(field.Key, e.Value))" />
+        }
+        else if (field.Type == FieldType.DropDown && field.Options != null)
+        {
+            <select class="form-select" value="@Get(field.Key)"
+                    @onchange="@((ChangeEventArgs e) => Set(field.Key, e.Value))">
+                <option value="">-- Select --</option>
+                @foreach (var option in field.Options)
+                {
+                    <option value="@option">@option</option>
+                }
+            </select>
+        }
+
+        @if (field.IsRequired && showErrors && string.IsNullOrWhiteSpace(Get(field.Key)?.ToString()))
+        {
+            <div class="text-danger">@field.Name is required.</div>
+        }
+
+    </div>
+}
+@code 
+{
+    [Parameter] public DefineForm Def { get; set; } = new();
+    [Parameter] public Dictionary<string, object> Values { get; set; } = new();
+    [Parameter] public bool showErrors { get; set; } = false;
+
+    public bool Validate()
+    {
+        foreach (var field in Def.Fields)
+        {
+            if (field.IsRequired && string.IsNullOrWhiteSpace(Get(field.Key)?.ToString()))
+                return false;
+        }
+        return true;
+    }
+
+    object? Get(string key) => Values.GetValueOrDefault(key);
+    void Set(string key, object? val) => Values[key] = val!;
+
+}

@@ -1,0 +1,98 @@
+﻿@page "/clients"
+@using DEF.Domain
+@inject HttpClient Http
+
+<div class="d-flex justify-content-between align-items-center">
+    <h3>Clients</h3>
+    <a href="/clients/new" class="btn btn-primary">Create New</a>
+</div>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th class="text-center">Dynamic Forms</th>
+            <th class="text-center">Jobs</th>
+            <th class ="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (clients != null)
+        {
+            @foreach (var c in clients)
+            {
+                <tr>
+                    <td>
+                        @c.FirstName
+                    </td>
+                    <td>
+                        @c.LastName
+                    </td>
+                    <td>
+                        @c.Email
+                    </td>
+                    <td>
+                        @c.Phone
+                    </td>
+                    <td>
+                        @c.Address
+                    </td>
+                    <td class="text-center">
+                        <span class="badge bg-info text-dark">
+                            @templateCount
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <a href="/jobs?clientId=@c.Id" class="badge bg-primary text-white text-decoration-none">
+                            @(jobCounts.TryGetValue(c.Id, out var count) ? count : 0) Jobs
+                        </a>
+                    </td>
+                    <td class = "text-center">
+                        <div class="btn-group" role="group">
+                            <a href="/clients/edit/@c.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <button class="btn btn-sm btn-outline-danger" @onclick="() => Delete(c.Id)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">Loading...</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code
+{
+    List<Client>? clients;
+    Dictionary<int, int> jobCounts = new();
+    int templateCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clients = await Http.GetFromJsonAsync<List<Client>>("api/client");
+        var templates = await Http.GetFromJsonAsync<List<DefineForm>>("api/dynamicform/entity/0");
+        if (templates != null)
+        {
+            templateCount = templates.Count;
+        }
+        var jobs = await Http.GetFromJsonAsync<List<Job>>("api/job");
+        if(jobs != null)
+        {
+            jobCounts = jobs.GroupBy(j => j.ClientID).ToDictionary(g => g.Key, g => g.Count());
+        }
+    }
+
+    async Task Delete(int id)
+    {
+        await Http.DeleteAsync($"api/client/{id}");
+        clients = await Http.GetFromJsonAsync<List<Client>>("api/client");
+    }
+}

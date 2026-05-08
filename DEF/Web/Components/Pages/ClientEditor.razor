@@ -1,0 +1,130 @@
+﻿@page "/clients/new"
+@page "/clients/edit/{Id:int}"
+@using DEF.Domain
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient Http
+@inject NavigationManager Nav
+
+<h3>@(Id == 0 ? "New" : "Edit") Client</h3>
+
+@if(loading)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="client" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label>First Name:</label>
+                    <InputText @bind-Value="client.FirstName" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Last Name:</label>
+                    <InputText @bind-Value="client.LastName" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Email:</label>
+                    <InputText @bind-Value="client.Email" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Phone:</label>
+                    <InputText @bind-Value="client.Phone" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Address:</label>
+                    <InputText @bind-Value="client.Address" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        @foreach (var template in templates)
+        {
+            <div class="card mb-3 border-primary">
+                <div class="card-header bg-primary text-white">
+                    @template.Name
+                </div>
+                <div class="card-body">
+                    <FormRenderer Def="template" Values="dynamicValues" showErrors="showErrors"/>
+                </div>
+            </div>
+        }
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="button" class="btn btn-secondary" @onclick='() => Nav.NavigateTo("/clients")'>Cancel</button>
+        </div>
+    </EditForm>
+}
+@code 
+{
+    [Parameter] public int Id { get; set; }
+
+    Client client = new() { DynamicForm = new Dictionary<string, object>() };
+    Dictionary<string, object> dynamicValues = new();
+    List<DefineForm> templates = new();
+    bool loading = true;
+    bool showErrors = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var templatesResult = await Http.GetFromJsonAsync<List<DefineForm>>("api/dynamicform/entity/0");
+            if (templatesResult != null)
+            {
+                templates = templatesResult;
+            }
+
+            if (Id != 0)
+            {
+                var result = await Http.GetFromJsonAsync<Client>($"api/client/{Id}");
+                if (result != null)
+                {
+                    client = result;
+                    var validKeys = templates.SelectMany(t => t.Fields).Select(f => f.Key).ToHashSet();
+                    dynamicValues = client.DynamicForm.Where(kv => validKeys.Contains(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    async Task Save()
+    {
+        showErrors = true;
+
+        foreach (var template in templates)
+        {
+            foreach (var field in template.Fields)
+            {
+                if (field.IsRequired && (!dynamicValues.TryGetValue(field.Key, out var val)
+                    || string.IsNullOrWhiteSpace(val?.ToString())))
+                    return;
+            }
+        }
+
+        client.DynamicForm = dynamicValues;
+        if (Id == 0)
+        {
+            await Http.PostAsJsonAsync("api/client", client);
+        }
+        else
+        {
+            await Http.PutAsJsonAsync($"api/client/{Id}", client);
+        }
+        Nav.NavigateTo("/clients");
+    }
+
+}
