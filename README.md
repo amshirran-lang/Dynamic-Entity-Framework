@@ -2,9 +2,9 @@
 
 **How to Run
 **Prerequisites
--Visual Studio 2019/2022
--.Net 9 SDK
--SQL Server LocalDB (included with visual studio)
+- Visual Studio 2019/2022
+- .Net 9 SDK
+- SQL Server LocalDB (included with visual studio)
 
 **Steps
 - Clone the repo
@@ -16,7 +16,6 @@
 - Open the package manager and run: "Update-Database" (package manager located under View -> Other Windows -> Package Manager Console)
 - Press 'F5' to run the application
 - If not brought to the home screen navigate to "https://localhost:7024"
-- 
 **Data Storage Approach
 
 Is this solid reasoning for why I used JSON columns for my database for a dynamic form:
