@@ -58,6 +58,7 @@ namespace DEF.API.Controllers
             existingJob.Title = job.Title;
             existingJob.Description = job.Description;
             existingJob.Status = job.Status;
+            existingJob.ClientID = job.ClientID;
             existingJob.DynamicJson = job.DynamicJson;
 
             context.SaveChanges();
